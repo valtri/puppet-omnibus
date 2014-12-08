@@ -75,7 +75,7 @@ class PuppetGem < FPM::Cookery::Recipe
       system "sed -e 's,=/var,=#{destdir}/var,' -i puppet.conf"
     end
     def install_files
-      destdir('etc/puppet').mkdir
+      destdir('etc/puppet/modules').mkdir
       destdir('etc/puppet').install builddir('puppet.conf') => 'puppet.conf'
       destdir('etc/init.d').install builddir('puppet.init') => 'puppet'
       destdir('etc/default').install builddir('puppet.default') => 'puppet'
@@ -92,7 +92,7 @@ class PuppetGem < FPM::Cookery::Recipe
       safesystem "echo PUPPETD=#{destdir}/bin/puppet >> client.sysconfig"
     end
     def install_files
-      destdir('etc/puppet').mkdir
+      destdir('etc/puppet/modules').mkdir
       destdir('etc/puppet').install builddir('puppet.conf') => 'puppet.conf'
       destdir('etc/init.d').install builddir('client.init') => 'puppet'
       destdir('etc/sysconfig').install builddir('client.sysconfig') => 'puppet'
