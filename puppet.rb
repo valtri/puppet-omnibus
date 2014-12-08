@@ -30,6 +30,10 @@ class PuppetGem < FPM::Cookery::Recipe
 
     # Download init scripts and conf
     build_files
+
+    # Patch the puppet (filthy hack)
+    system("sed -e 's,\"/etc/puppet\",\"#{destdir}/etc/puppet\",' -i #{destdir}/lib/ruby/gems/2.1.0/gems/puppet-3.7.3/lib/puppet/util/run_mode.rb")
+    system("sed -e 's,\"/var/lib/puppet\",\"#{destdir}/var/lib/puppet\",' -i #{destdir}/lib/ruby/gems/2.1.0/gems/puppet-3.7.3/lib/puppet/util/run_mode.rb")
   end
 
   def install
