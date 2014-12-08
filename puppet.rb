@@ -43,6 +43,10 @@ class PuppetGem < FPM::Cookery::Recipe
     destdir('../bin').install workdir('omnibus.bin'), 'facter'
     destdir('../bin').install workdir('omnibus.bin'), 'hiera'
 
+    destdir('var/lib/puppet').mkdir
+    destdir('var/log/puppet').mkdir
+    destdir('var/run/puppet').mkdir
+
     # Symlink binaries to PATH using update-alternatives
     with_trueprefix do
       create_post_install_hook
@@ -64,13 +68,14 @@ class PuppetGem < FPM::Cookery::Recipe
       system "curl -L -O https://raw.githubusercontent.com/puppetlabs/puppet/#{version}/ext/debian/puppet.default"
       # Set the real daemon path in initscript defaults
       system "echo DAEMON=#{destdir}/bin/puppet >> puppet.default"
+      system "sed -e 's,=/var,=#{destdir}/var,' -i puppet.conf"
     end
     def install_files
-      etc('puppet').mkdir
-      etc('puppet').install builddir('puppet.conf') => 'puppet.conf'
-      etc('init.d').install builddir('puppet.init') => 'puppet'
-      etc('default').install builddir('puppet.default') => 'puppet'
-      chmod 0755, etc('init.d/puppet')
+      destdir('etc/puppet').mkdir
+      destdir('etc/puppet').install builddir('puppet.conf') => 'puppet.conf'
+      destdir('etc/init.d').install builddir('puppet.init') => 'puppet'
+      destdir('etc/default').install builddir('puppet.default') => 'puppet'
+      chmod 0755, destdir('etc/init.d/puppet')
     end
   end
 
@@ -83,11 +88,11 @@ class PuppetGem < FPM::Cookery::Recipe
       safesystem "echo PUPPETD=#{destdir}/bin/puppet >> client.sysconfig"
     end
     def install_files
-      etc('puppet').mkdir
-      etc('puppet').install builddir('puppet.conf') => 'puppet.conf'
-      etc('init.d').install builddir('client.init') => 'puppet'
-      etc('sysconfig').install builddir('client.sysconfig') => 'puppet'
-      chmod 0755, etc('init.d/puppet')
+      destdir('etc/puppet').mkdir
+      destdir('etc/puppet').install builddir('puppet.conf') => 'puppet.conf'
+      destdir('etc/init.d').install builddir('client.init') => 'puppet'
+      destdir('etc/sysconfig').install builddir('client.sysconfig') => 'puppet'
+      chmod 0755, destdir('etc/init.d/puppet')
     end
   end
 
