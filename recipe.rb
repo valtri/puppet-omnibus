@@ -35,9 +35,7 @@ class PuppetOmnibus < FPM::Cookery::Recipe
   end
 
   def install
-    # Set paths to package scripts
-    self.class.post_install builddir('post-install')
-    self.class.pre_uninstall builddir('pre-uninstall')
+    # Nothing
   end
 
 end
