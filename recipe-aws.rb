@@ -14,8 +14,7 @@ class PuppetOmnibus < FPM::Cookery::Recipe
 
   omnibus_package true
   omnibus_dir     "/opt/#{name}"
-  omnibus_recipes 'libyaml',
-                  'ruby',
+  omnibus_recipes 'ruby',
                   'puppet',
                   'aws'
 

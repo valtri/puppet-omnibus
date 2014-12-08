@@ -7,13 +7,13 @@ class PuppetGem < FPM::Cookery::Recipe
   source "nothing", :with => :noop
 
   platforms [:ubuntu, :debian] do
-    build_depends 'libaugeas-dev', 'pkg-config'
-    depends 'libaugeas0', 'pkg-config'
+    build_depends 'libaugeas-dev', 'pkg-config', 'libyaml-0-2'
+    depends 'libaugeas0', 'pkg-config', 'libyaml'
   end
 
   platforms [:fedora, :redhat, :centos] do
-    build_depends 'augeas-devel', 'pkgconfig'
-    depends 'augeas-libs', 'pkgconfig'
+    build_depends 'augeas-devel', 'pkgconfig', 'libyaml'
+    depends 'augeas-libs', 'pkgconfig', 'libyaml'
   end
 
   def build
