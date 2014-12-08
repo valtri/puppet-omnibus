@@ -24,7 +24,7 @@ class Ruby < FPM::Cookery::Recipe
                   'build-essential',
                   'libffi-dev',
                   'libgdbm-dev'
-    depends 'libffi6',
+    depends 'libffi5',
             'libncurses5',
             'libreadline6',
             'libssl1.0.0',
