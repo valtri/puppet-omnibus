@@ -2,7 +2,7 @@ class PuppetOmnibus < FPM::Cookery::Recipe
   homepage 'https://github.com/andytinycat/puppet-omnibus'
 
   section 'Utilities'
-  name 'puppet-omnibus'
+  name 'puppet3-omnibus'
   version '3.7.3'
   description 'Puppet Omnibus package'
   revision 0
