@@ -2,7 +2,7 @@ class PuppetGem < FPM::Cookery::Recipe
   description 'Puppet gem stack'
 
   name 'puppet'
-  version '3.7.3'
+  version '3.7.5'
 
   source "nothing", :with => :noop
 
@@ -18,8 +18,8 @@ class PuppetGem < FPM::Cookery::Recipe
 
   def build
     # Install gems using the gem command from destdir
-    gem_install 'facter',      '2.3.0'
-    gem_install 'json_pure',   '1.8.1'
+    gem_install 'facter',      '2.4.3'
+    gem_install 'json_pure',   '1.8.2'
     gem_install 'hiera',       '1.3.4'
     gem_install 'deep_merge',  '1.0.1'
     gem_install 'rgen',        '0.7.0'
@@ -31,9 +31,10 @@ class PuppetGem < FPM::Cookery::Recipe
     # Download init scripts and conf
     build_files
 
-    # Patch the puppet (filthy hack)
-    system("sed -e 's,\"/etc/puppet\",\"#{destdir}/etc/puppet\",' -i #{destdir}/lib/ruby/gems/2.1.0/gems/puppet-3.7.3/lib/puppet/util/run_mode.rb")
-    system("sed -e 's,\"/var/lib/puppet\",\"#{destdir}/var/lib/puppet\",' -i #{destdir}/lib/ruby/gems/2.1.0/gems/puppet-3.7.3/lib/puppet/util/run_mode.rb")
+    # Patch the puppet and facter (filthy hack)
+    system("sed -e 's,\"/etc/puppet\",\"#{destdir}/etc/puppet\",' -i #{destdir}/lib/ruby/gems/2.1.0/gems/puppet-3.7.5/lib/puppet/util/run_mode.rb")
+    system("sed -e 's,\"/var/lib/puppet\",\"#{destdir}/var/lib/puppet\",' -i #{destdir}/lib/ruby/gems/2.1.0/gems/puppet-3.7.5/lib/puppet/util/run_mode.rb")
+    system("sed -e 's,\"/etc/facter/facts.d\",\"#{destdir}/etc/facter/facts.d\",' -i #{destdir}/lib/ruby/gems/2.1.0/gems/facter-2.4.3/lib/facter/util/config.rb")
   end
 
   def install
