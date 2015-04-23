@@ -3,7 +3,7 @@ class PuppetOmnibus < FPM::Cookery::Recipe
 
   section 'Utilities'
   name 'puppet3-omnibus'
-  version '3.7.3'
+  version '3.7.5'
   description 'Puppet Omnibus package'
   revision 0
   vendor 'fpm'
